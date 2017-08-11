@@ -1,0 +1,38 @@
+$Admin = "admin@openhack.onmicrosoft.com"
+$AdminPassword = "@azure10"
+$DirectoryName = "openhack.onmicrosoft.com"
+$NewUserPassword = "@windows10"
+$CsvFilePath = "Users.csv"
+
+# Remove the -Credential from "Connect-AzureAD", which will prompt for a username and password
+
+$SecPass = ConvertTo-SecureString $AdminPassword -AsPlainText -Force
+$Cred = New-Object System.Management.Automation.PSCredential ($Admin, $SecPass)
+Connect-AzureAD -Credential $cred
+
+$PasswordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile #Create a new Password Profile for the new users.
+$PasswordProfile.Password = $NewUserPassword
+
+$NewUsers = import-csv -Path $CsvFilePath
+
+Foreach ($NewUser in $NewUsers) 
+{ 
+
+    $UPN = $NewUser.Firstname + "." + $NewUser.LastName + "@" + $DirectoryName
+    $DisplayName = $NewUser.Firstname + " " + $NewUser.Lastname + " (" + $NewUser.Department + ")"
+    $MailNickName = $NewUser.Firstname + "." + $NewUser.LastName
+   
+    Write-Host ("-UserPrincipalName " + $UPN )
+    Write-Host ("-DisplayName "  + $DisplayName )
+    Write-Host ("-GivenName " + $NewUser.FirstName )
+    Write-Host ("-MailNickName " + $MailNickName )
+    Write-Host ("-Surname " + $NewUser.LastName   )  
+    Write-Host ("-PasswordProfile " + $PasswordProfile)
+
+    New-AzureADUser -UserPrincipalName $UPN -AccountEnabled $true -DisplayName $DisplayName -GivenName $NewUser.FirstName -MailNickName $MailNickName -Surname $NewUser.LastName -PasswordProfile $PasswordProfile
+
+}
+
+#This is the CSV fle structure
+#UserPrincipalName,DisplayName,FirstName,LastName,Password,AlternativeEmailAddresses
+#osvaldo,Osvaldo Daibert,Osvaldo,Daibert,P@ssw0rd,myemail@mail.com
