@@ -5,3 +5,5 @@
 2 - CreateComPlusApp.ps1
 
 3 - Wait-Service.ps1
+
+4 - Create Bulk-Import-Users-to-AAD -   This script read a .csv file and insert them to Azure Active Directory tenant
