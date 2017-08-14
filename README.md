@@ -9,4 +9,4 @@
 4 - <b>Create Bulk-Import-Users-to-AAD</b> -   This script read a .csv file and insert them to Azure Active Directory tenant
 <br>    You need to download the following two components in order to be able to connect to our Azure AD:
 <br>    Microsoft Online Services Sign-In Assistant for IT Professionals RTW https://www.microsoft.com/en-us/download/details.aspx?id=41950
-<br>    Azure Active Directory Module for Windows PowerShell (64-bit )http://connect.microsoft.com/site1164/Downloads/DownloadDetails.aspx?DownloadID=59185
+<br>    Azure Active Directory Module for Windows PowerShell (64-bit) http://connect.microsoft.com/site1164/Downloads/DownloadDetails.aspx?DownloadID=59185
